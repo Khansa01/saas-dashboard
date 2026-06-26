@@ -38,3 +38,21 @@ export async function deleteTransaction(id: string) {
 
   revalidatePath("/dashboard")
 }
+
+export async function updateTransaction(id: string, formData: FormData) {
+  const session = await auth()
+  if (!session?.user?.id) throw new Error("Unauthorized")
+
+  const description = formData.get("description") as string
+  const category = formData.get("category") as string
+  const amount = parseFloat(formData.get("amount") as string)
+  const type = formData.get("type") as string
+  const status = formData.get("status") as string
+
+  await db.transaction.update({
+    where: { id, userId: session.user.id },
+    data: { description, category, amount, type, status },
+  })
+
+  revalidatePath("/dashboard")
+}
