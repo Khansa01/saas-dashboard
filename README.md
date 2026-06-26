@@ -23,7 +23,7 @@ A full-stack SaaS dashboard for tracking business revenue, expenses, and transac
 
 1. Clone the repository
 ```bash
-   git clone https://github.com/username/saas-dashboard.git
+   git clone https://github.com/Khansa01/saas-dashboard.git
    cd saas-dashboard
 ```
 
