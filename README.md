@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FinTrack — Finance Analytics Dashboard
+
+A full-stack SaaS dashboard for tracking business revenue, expenses, and transactions.
+
+## Features
+
+- 🔐 Authentication with Google OAuth (NextAuth.js)
+- 📊 Revenue vs expenses chart (Recharts)
+- 💳 Transaction management (CRUD)
+- 📱 Responsive layout with sidebar navigation
+- 🗄️ PostgreSQL database with Prisma ORM
+
+## Tech Stack
+
+- **Framework**: Next.js 16 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS + shadcn/ui
+- **Auth**: NextAuth.js v5
+- **Database**: PostgreSQL (Neon) + Prisma ORM
+- **Deployment**: Vercel
 
 ## Getting Started
 
-First, run the development server:
-
+1. Clone the repository
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+   git clone https://github.com/username/saas-dashboard.git
+   cd saas-dashboard
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies
+```bash
+   npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Setup environment variables
+```bash
+   cp .env.example .env.local
+```
+   Fill in the values in `.env.local`:
+   - `DATABASE_URL` — PostgreSQL connection string from [Neon](https://neon.tech)
+   - `NEXTAUTH_SECRET` — Random string (generate with `openssl rand -base64 32`)
+   - `GOOGLE_CLIENT_ID` & `GOOGLE_CLIENT_SECRET` — From [Google Cloud Console](https://console.cloud.google.com)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Push database schema
+```bash
+   npx prisma db push
+```
 
-## Learn More
+5. Run the development server
+```bash
+   npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Live Demo
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+[View live demo →](https://saas-dashboard.vercel.app)
 
-## Deploy on Vercel
+## Screenshots
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+![Dashboard Overview](public/screenshot-dashboard.png)
