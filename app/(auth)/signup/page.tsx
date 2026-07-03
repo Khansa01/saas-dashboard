@@ -1,17 +1,17 @@
 import { signIn } from "@/lib/auth"
 import Link from "next/link"
-import { LoginForm } from "@/components/auth/login-form"
+import { SignupForm } from "@/components/auth/signup-form"
 
-export default function LoginPage() {
+export default function SignupPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
       <div className="bg-white p-8 rounded-xl shadow-sm border w-full max-w-md">
         <div className="mb-8 text-center">
-          <h1 className="text-2xl font-semibold text-gray-900">Welcome back</h1>
-          <p className="text-gray-500 mt-2 text-sm">Sign in to your account</p>
+          <h1 className="text-2xl font-semibold text-gray-900">Buat akun</h1>
+          <p className="text-gray-500 mt-2 text-sm">Mulai kelola project kamu</p>
         </div>
 
-        <LoginForm />
+        <SignupForm />
 
         <div className="flex items-center gap-3 my-6">
           <div className="flex-1 h-px bg-gray-200" />
@@ -40,9 +40,9 @@ export default function LoginPage() {
         </form>
 
         <p className="text-center text-sm text-gray-500 mt-6">
-          Belum punya akun?{" "}
-          <Link href="/signup" className="text-gray-900 font-medium hover:underline">
-            Daftar
+          Sudah punya akun?{" "}
+          <Link href="/login" className="text-gray-900 font-medium hover:underline">
+            Masuk
           </Link>
         </p>
       </div>
