@@ -8,7 +8,6 @@ export async function getTransactions() {
   return db.transaction.findMany({
     where: { userId: session.user.id },
     orderBy: { createdAt: "desc" },
-    take: 10,
   })
 }
 
@@ -36,4 +35,30 @@ export async function getStats() {
     profit: revenue - expenses,
     pending,
   }
+}
+
+export async function getChartData() {
+  const session = await auth()
+  if (!session?.user?.id) return []
+
+  const transactions = await db.transaction.findMany({
+    where: { userId: session.user.id },
+    orderBy: { createdAt: "asc" },
+  })
+
+  const monthMap: Record<string, { month: string; revenue: number; expenses: number }> = {}
+
+  transactions.forEach((t) => {
+    const month = new Date(t.createdAt).toLocaleString("en-US", { month: "short" })
+    if (!monthMap[month]) {
+      monthMap[month] = { month, revenue: 0, expenses: 0 }
+    }
+    if (t.type === "in") {
+      monthMap[month].revenue += t.amount
+    } else {
+      monthMap[month].expenses += t.amount
+    }
+  })
+
+  return Object.values(monthMap)
 }

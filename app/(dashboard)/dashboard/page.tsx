@@ -2,13 +2,14 @@ import { StatsCard } from "@/components/dashboard/stats-card"
 import { RevenueChart } from "@/components/dashboard/activity-chart"
 import { RecentTransactions } from "@/components/dashboard/recent-projects"
 import { AddTransactionForm } from "@/components/dashboard/project-form"
-import { getStats, getTransactions } from "@/server/queries/transaction.queries"
+import { getStats, getTransactions, getChartData } from "@/server/queries/transaction.queries"
 import { TrendingUp, TrendingDown, Coins, FileText } from "lucide-react"
 
 export default async function DashboardPage() {
-  const [stats, transactions] = await Promise.all([
+  const [stats, transactions, chartData] = await Promise.all([
     getStats(),
     getTransactions(),
+    getChartData(),
   ])
 
   return (
@@ -52,7 +53,7 @@ export default async function DashboardPage() {
         />
       </div>
 
-      <RevenueChart />
+      <RevenueChart data={chartData} />
       <RecentTransactions transactions={transactions} />
     </div>
   )

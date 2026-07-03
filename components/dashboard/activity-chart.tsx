@@ -10,20 +10,26 @@ import {
   Legend,
 } from "recharts"
 
-const data = [
-  { month: "Jan", revenue: 32000, expenses: 18000 },
-  { month: "Feb", revenue: 38000, expenses: 21000 },
-  { month: "Mar", revenue: 29000, expenses: 16000 },
-  { month: "Apr", revenue: 43000, expenses: 24000 },
-  { month: "May", revenue: 39000, expenses: 19000 },
-  { month: "Jun", revenue: 48000, expenses: 21000 },
-]
+interface ChartData {
+  month: string
+  revenue: number
+  expenses: number
+}
 
-export function RevenueChart() {
+export function RevenueChart({ data }: { data: ChartData[] }) {
+  if (data.length === 0) {
+    return (
+      <div className="bg-white border border-gray-100 rounded-xl p-8 text-center">
+        <p className="text-sm text-gray-400">No chart data yet</p>
+        <p className="text-xs text-gray-300 mt-1">Add transactions to see your revenue chart</p>
+      </div>
+    )
+  }
+
   return (
     <div className="bg-white border border-gray-100 rounded-xl p-4">
       <p className="text-sm font-medium text-gray-900">Revenue vs expenses</p>
-      <p className="text-xs text-gray-400 mt-0.5 mb-4">Last 6 months</p>
+      <p className="text-xs text-gray-400 mt-0.5 mb-4">Based on your transactions</p>
       <ResponsiveContainer width="100%" height={220}>
         <BarChart data={data} barGap={4}>
           <XAxis dataKey="month" tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
