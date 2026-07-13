@@ -18,6 +18,7 @@ model User {
   sessions      Session[]
   projects      Project[]
   transactions Transaction[]
+  invoices    Invoice[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
 }
@@ -40,6 +41,19 @@ model Transaction {
   amount      Float
   type        String   // "in" atau "out"
   status      String   @default("Completed")
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Invoice {
+  id          String   @id @default(cuid())
+  title       String
+  client      String
+  amount      Float
+  status      String   @default("Pending")
+  dueDate     DateTime
   userId      String
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
