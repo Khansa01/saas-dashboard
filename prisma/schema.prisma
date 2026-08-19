@@ -21,6 +21,7 @@ model User {
   invoices    Invoice[]
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+  currency      String    @default("USD")
 }
 
 model Project {

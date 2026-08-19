@@ -1,5 +1,9 @@
+"use client"
+
 import { DeleteButton } from "@/components/dashboard/delete-dialog"
 import { EditButton } from "@/components/dashboard/edit-dialog"
+import { useCurrency } from "../layout/currency-selector"
+import { formatAmount } from "@/lib/currency"
 
 interface Transaction {
   id: string
@@ -17,6 +21,8 @@ const statusStyle: Record<string, string> = {
 }
 
 export function RecentTransactions({ transactions }: { transactions: Transaction[] }) {
+   const currency = useCurrency()
+
   if (transactions.length === 0) {
     return (
       <div className="bg-white border border-gray-100 rounded-xl p-8 text-center">
@@ -45,7 +51,7 @@ export function RecentTransactions({ transactions }: { transactions: Transaction
             <div className="font-medium text-gray-900">{t.description}</div>
             <div className="text-gray-400 text-xs">{t.category}</div>
             <div className={`text-xs font-medium ${t.type === "in" ? "text-green-700" : "text-red-600"}`}>
-              {t.type === "in" ? "+" : "-"}${t.amount.toLocaleString()}
+              {t.type === "in" ? "+" : "-"}{formatAmount(t.amount, currency.symbol)}
             </div>
             <div>
               <span className={`text-[10px] font-medium px-2 py-1 rounded-full ${statusStyle[t.status]}`}>

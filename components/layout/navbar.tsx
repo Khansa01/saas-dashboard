@@ -1,13 +1,15 @@
-"use client"
+import { getCurrency } from "@/server/actions/user.actions"
+import { CurrencySelector } from "@/components/layout/currency-selector"
+import { CURRENCIES } from "@/lib/currency"
 
-import Link from "next/link"
-import { SessionTimer } from "@/components/auth/session-timer"
-import { LogoutButton } from "@/components/auth/logout-button"
+export const Navbar = async () => {
+  const savedCode = await getCurrency()
+  const saved = CURRENCIES.find(c => c.code === savedCode) ?? CURRENCIES[0]
 
-export function Navbar() {
   return (
-    <nav className="flex items-center justify-between p-4 border-b">
-        <SessionTimer />
+    <nav className="flex items-center justify-between px-5 py-3 border-b border-gray-100 bg-white">
+      <p className="text-xs text-gray-400">FinTrack</p>
+      <CurrencySelector initialCurrency={saved} />
     </nav>
   )
 }
