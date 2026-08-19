@@ -9,6 +9,8 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts"
+import { useCurrency } from "../layout/currency-selector"
+import { formatAmount } from "@/lib/currency"
 
 interface TrendData {
   month: string
@@ -17,7 +19,9 @@ interface TrendData {
   profit: number
 }
 
-export function TrendChart({ data }: { data: TrendData[] }) {
+export const TrendChart = ({ data }: { data: TrendData[] }) => {
+  const currency = useCurrency()
+
   return (
     <div className="bg-white border border-gray-100 rounded-xl p-4">
       <p className="text-sm font-medium text-gray-900">Revenue trend</p>
@@ -30,8 +34,8 @@ export function TrendChart({ data }: { data: TrendData[] }) {
         <ResponsiveContainer width="100%" height={200}>
           <LineChart data={data}>
             <XAxis dataKey="month" tick={{ fontSize: 11 }} axisLine={false} tickLine={false} />
-            <YAxis tick={{ fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => `$${v / 1000}k`} />
-            <Tooltip formatter={(value) => [`$${Number(value).toLocaleString()}`, ""]} />
+            <YAxis tick={{ fontSize: 11 }} axisLine={false} tickLine={false} tickFormatter={(v) => formatAmount(v / 1000, currency.symbol) + "k"} />
+            <Tooltip formatter={(value) => [formatAmount(Number(value), currency.symbol), ""]} />
             <Legend wrapperStyle={{ fontSize: 12 }} />
             <Line type="monotone" dataKey="revenue" name="Revenue" stroke="#378ADD" strokeWidth={2} dot={false} />
             <Line type="monotone" dataKey="expenses" name="Expenses" stroke="#F09595" strokeWidth={2} dot={false} />
