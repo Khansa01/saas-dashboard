@@ -2,7 +2,8 @@
 
 import { DeleteButton } from "@/components/dashboard/delete-dialog"
 import { EditButton } from "@/components/dashboard/edit-dialog"
-import { formatAmount, useCurrency } from "@/components/layout/currency-selector"
+import {  useCurrency } from "@/components/layout/currency-selector"
+import { formatAmount } from "@/lib/currency"
 
 interface Transaction {
   id: string
